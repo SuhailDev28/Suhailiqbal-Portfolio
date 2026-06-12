@@ -227,7 +227,7 @@ const experience = [
   {
     company: "Al Zaini Trading",
     role: "Full Stack Developer",
-    period: "June 2024 — Present",
+    period: "March 2018 — April 2024",
     points: [
       "Developing web platforms, digital systems and business-facing interfaces.",
       "Combining frontend, backend, design execution and deployment support.",
