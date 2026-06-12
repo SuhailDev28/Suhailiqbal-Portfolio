@@ -1108,7 +1108,7 @@ function Footer() {
         </a>
       </div>
 
-      <p>© {new Date().getFullYear()} Suhail Iqbal. Built with React + Framer Motion.</p>
+      <p>© {new Date().getFullYear()} Suhail Iqbal. Built with React .</p>
     </footer>
   );
 }
