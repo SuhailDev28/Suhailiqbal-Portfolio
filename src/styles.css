@@ -2213,3 +2213,383 @@ html[data-theme="light"] .mobile-whatsapp {
     padding-bottom: 92px;
   }
 }
+/* ============================= */
+/* FINAL RESPONSIVE FIXES */
+/* Add this at the very bottom */
+/* ============================= */
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+/* Prevent long text from breaking layout */
+h1,
+h2,
+h3,
+p,
+span,
+strong,
+a,
+li {
+  overflow-wrap: anywhere;
+}
+
+/* Better fallback for browsers with weak color-mix support */
+.site-header,
+.floating-dock {
+  background: rgba(15, 23, 42, 0.88);
+}
+
+html[data-theme="light"] .site-header,
+html[data-theme="light"] .floating-dock {
+  background: rgba(255, 255, 255, 0.9);
+}
+
+/* Header stability */
+.site-header {
+  min-height: 68px;
+}
+
+.header-actions {
+  flex-shrink: 0;
+}
+
+.brand {
+  flex-shrink: 1;
+}
+
+/* Hero overflow protection */
+.poster-header-card {
+  max-width: 100%;
+}
+
+.poster-header-title {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.poster-header-info,
+.service-grid,
+.project-grid,
+.testimonial-grid,
+.process-grid,
+.stack-group-grid,
+.stack-grid,
+.stats-grid {
+  min-width: 0;
+}
+
+.poster-header-about,
+.poster-header-item,
+.service-card,
+.project-card,
+.testimonial-card,
+.stack-group,
+.process-card,
+.timeline-card,
+.highlight-card,
+.contact-card,
+.stat-card {
+  min-width: 0;
+}
+
+/* Better project card height behavior */
+.project-card {
+  height: 100%;
+}
+
+.project-card p {
+  min-height: auto;
+}
+
+/* Contact strip text fix */
+.contact-strip span {
+  max-width: 100%;
+}
+
+/* Better mobile menu layering */
+.mobile-menu {
+  z-index: 999;
+}
+
+/* Large desktop refinement */
+@media (min-width: 1400px) {
+  .poster-header-section {
+    padding-top: 78px;
+  }
+
+  .poster-header-card {
+    min-height: 700px;
+  }
+}
+
+/* Laptop and tablet */
+@media (max-width: 1200px) {
+  .site-header {
+    width: calc(100% - 28px);
+  }
+
+  .poster-header-title {
+    font-size: clamp(3rem, 11vw, 8.6rem);
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* iPad / tablet portrait */
+@media (max-width: 900px) {
+  .poster-header-info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .poster-header-about {
+    grid-column: 1 / -1;
+  }
+
+  .poster-header-title {
+    justify-content: center;
+    font-size: clamp(3rem, 12vw, 7rem);
+  }
+
+  .poster-header-avatar {
+    width: min(42vw, 300px);
+  }
+
+  .service-grid,
+  .project-grid,
+  .testimonial-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .process-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile menu activation */
+@media (max-width: 760px) {
+  .desktop-nav,
+  .header-cta,
+  .whatsapp-cta {
+    display: none;
+  }
+
+  .menu-button {
+    display: inline-grid;
+  }
+
+  .site-header {
+    border-radius: 22px;
+  }
+
+  .brand strong {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .poster-header-info {
+    grid-template-columns: 1fr;
+  }
+
+  .poster-header-about {
+    grid-column: auto;
+  }
+
+  .service-grid,
+  .project-grid,
+  .testimonial-grid,
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .highlight-card {
+    position: relative;
+    top: auto;
+  }
+}
+
+/* Mobile */
+@media (max-width: 560px) {
+  .site-header {
+    width: calc(100% - 20px);
+    top: 10px;
+    margin-top: 10px;
+    padding: 8px;
+    min-height: 58px;
+  }
+
+  .brand strong {
+    max-width: 126px;
+  }
+
+  .poster-header-section {
+    width: calc(100% - 20px);
+  }
+
+  .poster-header-card {
+    padding: 16px;
+    border-radius: 26px;
+  }
+
+  .poster-header-title {
+    justify-content: center;
+    font-size: clamp(2rem, 12.5vw, 4rem);
+    line-height: 0.9;
+    letter-spacing: -0.13em;
+  }
+
+  .poster-header-title small {
+    display: none;
+  }
+
+  .poster-header-avatar {
+    width: min(72vw, 230px);
+  }
+
+  .poster-header-badge {
+    font-size: 0.78rem;
+    padding: 9px 12px;
+  }
+
+  .poster-header-actions {
+    justify-content: flex-start;
+  }
+
+  .poster-header-chip {
+    flex: 1 1 calc(50% - 10px);
+    justify-content: center;
+    padding: 0 10px;
+  }
+
+  .poster-header-chip.dark {
+    flex: 1 1 auto;
+  }
+
+  .section {
+    width: calc(100% - 20px);
+    padding: 52px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 22px;
+  }
+
+  .eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .section-heading h2,
+  .contact-card h2 {
+    font-size: clamp(1.75rem, 10vw, 2.8rem);
+    letter-spacing: -0.05em;
+  }
+
+  .section-heading p,
+  .contact-card p {
+    font-size: 0.94rem;
+  }
+
+  .service-card,
+  .project-card,
+  .testimonial-card,
+  .stack-group,
+  .process-card,
+  .timeline-card {
+    padding: 18px;
+  }
+
+  .timeline::before {
+    display: none;
+  }
+
+  .timeline-item {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-marker {
+    display: none;
+  }
+
+  .timeline-card ul {
+    padding-left: 18px;
+  }
+
+  .contact-card {
+    padding: 20px;
+  }
+
+  .contact-actions {
+    gap: 10px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .contact-strip span {
+    font-size: 0.78rem;
+  }
+
+  .floating-dock {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    transform: none;
+    width: auto;
+    max-width: none;
+    padding: 7px;
+  }
+
+  .floating-dock a {
+    width: 40px;
+    height: 40px;
+  }
+
+  .footer {
+    width: calc(100% - 20px);
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .brand strong {
+    max-width: 105px;
+    font-size: 0.8rem;
+  }
+
+  .brand-mark {
+    width: 36px;
+    height: 36px;
+  }
+
+  .theme-toggle,
+  .menu-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .poster-header-title {
+    font-size: 1.9rem;
+  }
+
+  .poster-header-chip {
+    flex-basis: 100%;
+  }
+
+  .floating-dock a {
+    width: 36px;
+    height: 36px;
+  }
+}
