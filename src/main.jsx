@@ -218,7 +218,7 @@ const experience = [
   {
     company: "NextMove Holding",
     role: "Full Stack Developer & Digital Solutions Specialist",
-    period: "2025 — Present",
+    period: " July 2025 — Present",
     points: [
       "Building internal business applications, portals, dashboards and workflow automation.",
       "Supporting API integrations, corporate websites, branding systems and enterprise solutions.",
