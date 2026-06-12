@@ -1,13 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {
-  AnimatePresence,
-  motion,
-  useMotionValue,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -43,7 +36,7 @@ import "./styles.css";
 const profile = {
   name: "Suhail Iqbal",
   firstName: "Suhail",
-  photo: `${import.meta.env.BASE_URL}assets/suhail-avatar-cartoon.png`,
+  photo: `${import.meta.env.BASE_URL}assets/suhail-avatar-cartoon.png.png`,
   role: "Full Stack Developer",
   location: "Doha, Qatar",
   email: "suhailiqbal28@gmail.com",
@@ -305,57 +298,9 @@ const testimonials = [
   },
 ];
 
-const heroSkills = ["React", "Node.js", "MongoDB", "UI/UX", "WordPress", "Automation"];
-const heroParticles = Array.from({ length: 14 }, (_, index) => index);
-
 const fadeUp = {
   hidden: { opacity: 0, y: 26 },
   visible: { opacity: 1, y: 0 },
-};
-
-const heroCardVariants = {
-  hidden: { opacity: 0, y: 36, scale: 0.96, filter: "blur(12px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    filter: "blur(0px)",
-    transition: {
-      duration: 0.85,
-      ease: [0.16, 1, 0.3, 1],
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const heroChildVariants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
-const heroLetterVariants = {
-  hidden: {
-    opacity: 0,
-    y: 80,
-    rotateX: -90,
-    filter: "blur(16px)",
-  },
-  visible: (index) => ({
-    opacity: 1,
-    y: 0,
-    rotateX: 0,
-    filter: "blur(0px)",
-    transition: {
-      delay: 0.1 + index * 0.045,
-      duration: 0.72,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  }),
 };
 
 function getInitialTheme() {
@@ -668,216 +613,83 @@ function SectionHeading({ eyebrow, title, description }) {
 }
 
 function Hero() {
-  const heroRef = React.useRef(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const avatarX = useTransform(mouseX, [-1, 1], [-18, 18]);
-  const avatarY = useTransform(mouseY, [-1, 1], [-14, 14]);
-  const ringRotateX = useTransform(mouseY, [-1, 1], [10, -10]);
-  const ringRotateY = useTransform(mouseX, [-1, 1], [-12, 12]);
-
-  function handleHeroPointerMove(event) {
-    const rect = heroRef.current?.getBoundingClientRect();
-    if (!rect) return;
-
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-
-    mouseX.set((x - 0.5) * 2);
-    mouseY.set((y - 0.5) * 2);
-  }
-
-  function handleHeroPointerLeave() {
-    mouseX.set(0);
-    mouseY.set(0);
-  }
-
   return (
-    <section
-      ref={heroRef}
-      className="poster-header-section"
-      onPointerMove={handleHeroPointerMove}
-      onPointerLeave={handleHeroPointerLeave}
-    >
+    <section className="poster-header-section">
       <motion.div
-        className="poster-header-card hero-animated-card"
-        variants={heroCardVariants}
-        initial="hidden"
-        animate="visible"
+        className="poster-header-card"
+        initial={{ opacity: 0, y: 28, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.7 }}
       >
-        <motion.div
-          className="hero-shine"
-          animate={{ x: ["-140%", "140%"] }}
-          transition={{
-            duration: 4.5,
-            repeat: Infinity,
-            repeatDelay: 1.8,
-            ease: "easeInOut",
-          }}
-        />
-
-        <div className="hero-particles" aria-hidden="true">
-          {heroParticles.map((item) => (
-            <motion.span
-              key={item}
-              className={`hero-particle hero-particle-${item + 1}`}
-              animate={{
-                y: [0, -18, 0],
-                x: [0, item % 2 === 0 ? 10 : -10, 0],
-                opacity: [0.25, 0.95, 0.25],
-                scale: [1, 1.35, 1],
-              }}
-              transition={{
-                duration: 3.5 + item * 0.22,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: item * 0.18,
-              }}
-            />
-          ))}
+        <div className="poster-header-title" aria-hidden="true">
+          <span>P</span>
+          <span>O</span>
+          <span>R</span>
+          <span>T</span>
+          <span>F</span>
+          <span>O</span>
+          <span>L</span>
+          <span>I</span>
+          <span>O</span>
+          <small>'26</small>
         </div>
 
-        <motion.div className="hero-orbit orbit-one" animate={{ rotate: 360 }} transition={{ duration: 26, repeat: Infinity, ease: "linear" }} />
-        <motion.div className="hero-orbit orbit-two" animate={{ rotate: -360 }} transition={{ duration: 34, repeat: Infinity, ease: "linear" }} />
-
-        <div className="poster-header-title hero-title" aria-hidden="true">
-          {"PORTFOLIO".split("").map((letter, index) => (
-            <motion.span
-              key={`${letter}-${index}`}
-              custom={index}
-              variants={heroLetterVariants}
-              whileHover={{
-                y: -12,
-                scale: 1.06,
-                transition: { duration: 0.2 },
-              }}
-            >
-              {letter}
-            </motion.span>
-          ))}
-
-          <motion.small
-            initial={{ opacity: 0, scale: 0.4, rotate: -18 }}
-            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ delay: 0.75, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-          >
-            '26
-          </motion.small>
-        </div>
-
-        <motion.div className="hero-availability" variants={heroChildVariants}>
-          <motion.span
-            animate={{ scale: [1, 1.35, 1], opacity: [1, 0.45, 1] }}
-            transition={{ duration: 1.8, repeat: Infinity }}
-          />
-          {profile.availability}
-        </motion.div>
-
-        <motion.div className="poster-header-avatar-area" variants={heroChildVariants}>
+        <div className="poster-header-avatar-area">
           <motion.div
-            className="poster-header-avatar hero-avatar"
-            style={{
-              x: avatarX,
-              y: avatarY,
-              rotateX: ringRotateX,
-              rotateY: ringRotateY,
-            }}
-            animate={{
-              scale: [1, 1.025, 1],
-            }}
-            transition={{
-              scale: {
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              },
-            }}
+            className="poster-header-avatar"
+            initial={{ opacity: 0, y: 24, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 0.75, delay: 0.2 }}
           >
-            <motion.div
-              className="hero-avatar-ring"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            />
-
-            <img
-              src={profile.photo}
-              alt={`${profile.name} avatar`}
-              onError={(event) => {
-                event.currentTarget.style.display = "none";
-              }}
-            />
+            <img src={profile.photo} alt={`${profile.name} avatar`} />
           </motion.div>
 
           <motion.div
-            className="poster-header-badge hero-badge"
-            animate={{
-              y: [0, -8, 0],
-              boxShadow: [
-                "0 0 0 rgba(56, 189, 248, 0)",
-                "0 18px 40px rgba(56, 189, 248, 0.22)",
-                "0 0 0 rgba(56, 189, 248, 0)",
-              ],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
+            className="poster-header-badge"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.6 }}
           >
             <Code2 size={15} />
             Full Stack Developer
           </motion.div>
-        </motion.div>
+        </div>
 
-        <motion.div className="poster-header-divider" variants={heroChildVariants} />
+        <div className="poster-header-divider" />
 
-        <motion.div className="poster-header-info" variants={heroChildVariants}>
-          <motion.div
-            className="poster-header-about"
-            whileHover={{ y: -6, scale: 1.01 }}
-            transition={{ duration: 0.2 }}
-          >
+        <div className="poster-header-info">
+          <div className="poster-header-about">
             <span>About Me</span>
             <h1>Hi, I’m {profile.firstName}</h1>
             <p>
               I create modern websites, dashboards, SaaS platforms and automation systems
               with clean UI, scalable backend structure and launch-focused execution.
             </p>
-          </motion.div>
+          </div>
 
-          {[
-            { label: "Location", value: profile.location },
-            { label: "Focus", value: "React, Node.js, MongoDB" },
-            { label: "Contact", value: profile.email },
-          ].map((item, index) => (
-            <motion.div
-              className="poster-header-item"
-              key={item.label}
-              whileHover={{ y: -6, scale: 1.02 }}
-              transition={{ duration: 0.2 }}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: 1,
-                y: 0,
-                transition: { delay: 0.9 + index * 0.09, duration: 0.45 },
-              }}
-            >
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-            </motion.div>
-          ))}
-        </motion.div>
+          <div className="poster-header-item">
+            <span>Location</span>
+            <strong>{profile.location}</strong>
+          </div>
 
-        <motion.div className="poster-header-actions hero-chip-row" variants={heroChildVariants}>
-          <motion.a whileHover={{ y: -5, scale: 1.04 }} whileTap={{ scale: 0.96 }} href="#work" className="poster-header-chip">
+          <div className="poster-header-item">
+            <span>Focus</span>
+            <strong>React, Node.js, MongoDB</strong>
+          </div>
+
+          <div className="poster-header-item">
+            <span>Contact</span>
+            <strong>{profile.email}</strong>
+          </div>
+        </div>
+
+        <div className="poster-header-actions">
+          <a href="#work" className="poster-header-chip">
             View Work
             <ArrowUpRight size={14} />
-          </motion.a>
+          </a>
 
-          <motion.a
-            whileHover={{ y: -5, scale: 1.04 }}
-            whileTap={{ scale: 0.96 }}
+          <a
             href={getWhatsappLink()}
             className="poster-header-chip whatsapp"
             target="_blank"
@@ -885,40 +697,19 @@ function Hero() {
           >
             WhatsApp
             <MessageCircle size={14} />
-          </motion.a>
+          </a>
 
-          <motion.a whileHover={{ y: -5, scale: 1.04 }} whileTap={{ scale: 0.96 }} href={getHireMeLink()} className="poster-header-chip">
+          <a href={getHireMeLink()} className="poster-header-chip">
             Hire Me
             <Mail size={14} />
-          </motion.a>
+          </a>
 
-          {heroSkills.map((item, index) => (
-            <motion.span
-              className="poster-header-chip dark hero-skill-chip"
-              key={item}
-              initial={{ opacity: 0, y: 18, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 1.05 + index * 0.06, duration: 0.4 }}
-              whileHover={{ y: -5, scale: 1.05 }}
-            >
+          {["React", "Node", "MongoDB", "UI/UX", "WordPress", "Automation"].map((item) => (
+            <span className="poster-header-chip dark" key={item}>
               {item}
-            </motion.span>
+            </span>
           ))}
-        </motion.div>
-
-        <motion.a
-          href="#services"
-          className="hero-scroll-cue"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 1.4, duration: 0.45 }}
-        >
-          <span>Scroll</span>
-          <motion.i
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 1.35, repeat: Infinity, ease: "easeInOut" }}
-          />
-        </motion.a>
+        </div>
       </motion.div>
 
       <motion.div
