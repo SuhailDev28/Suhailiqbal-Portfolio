@@ -37,18 +37,21 @@ const profile = {
   name: "Suhail Iqbal",
   firstName: "Suhail",
   photo: `${import.meta.env.BASE_URL}assets/suhail-avatar-cartoon.png.png`,
-  role: "Full Stack Developer",
+  role: "Full Stack & Flutter Developer",
   location: "Doha, Qatar",
   email: "suhailiqbal28@gmail.com",
   phone: "+97474068761",
   whatsappNumber: "97474068761",
   tagline:
-    "I design and build modern web applications, business dashboards, SaaS platforms, automation systems, and premium digital experiences for growing companies.",
-  availability: "Available for selected freelance, SaaS and business software projects",
+    "I design and build modern web applications, mobile apps, business dashboards, SaaS platforms, automation systems, and premium digital experiences for growing companies.",
+  availability:
+    "Available for selected freelance, SaaS, mobile app and business software projects",
 };
 
 function getHireMeLink() {
-  const subject = encodeURIComponent("Project Enquiry - Full Stack Development");
+  const subject = encodeURIComponent(
+    "Project Enquiry - Web / Mobile App Development"
+  );
 
   const body = encodeURIComponent(`Hi Suhail,
 
@@ -67,7 +70,7 @@ Thank you.`);
 function getWhatsappLink() {
   const message = encodeURIComponent(`Hi Suhail,
 
-I would like to discuss a website / web app / dashboard project with you.
+I would like to discuss a website / mobile app / web app / dashboard project with you.
 
 Project type:
 Budget:
@@ -81,7 +84,7 @@ const navItems = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "Stack", href: "#stack" },
-  { label: "PWA Apps", href: "#pwa-apps" },
+  { label: "Apps", href: "#pwa-apps" },
   { label: "Experience", href: "#experience" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
@@ -89,7 +92,7 @@ const navItems = [
 
 const stats = [
   { value: "6+", label: "Years Digital Experience" },
-  { value: "20+", label: "Web & App Projects" },
+  { value: "20+", label: "Web, App & Dashboard Projects" },
   { value: "Qatar", label: "Business Market Focus" },
   { value: "Full-cycle", label: "Design → Build → Launch" },
 ];
@@ -100,6 +103,12 @@ const services = [
     title: "Full Stack Web Apps",
     description:
       "React, Node.js, Express and database-backed platforms with premium responsive interfaces.",
+  },
+  {
+    icon: MonitorSmartphone,
+    title: "Mobile App Development",
+    description:
+      "Flutter mobile apps with clean UI, smooth user flows, API integration and scalable app structure.",
   },
   {
     icon: Workflow,
@@ -137,12 +146,38 @@ const stackGroups = [
   {
     title: "Frontend",
     icon: Code2,
-    items: ["React.js", "JavaScript", "HTML5", "CSS3", "Responsive UI", "RTL Layouts"],
+    items: [
+      "React.js",
+      "JavaScript",
+      "HTML5",
+      "CSS3",
+      "Responsive UI",
+      "RTL Layouts",
+    ],
+  },
+  {
+    title: "Mobile Apps",
+    icon: MonitorSmartphone,
+    items: [
+      "Flutter",
+      "Dart",
+      "Mobile UI",
+      "API Integration",
+      "App Flows",
+      "PWA",
+    ],
   },
   {
     title: "Backend",
     icon: Server,
-    items: ["Node.js", "Express.js", "REST APIs", "Auth", "Role Access", "Cron Jobs"],
+    items: [
+      "Node.js",
+      "Express.js",
+      "REST APIs",
+      "Auth",
+      "Role Access",
+      "Cron Jobs",
+    ],
   },
   {
     title: "Database & CMS",
@@ -194,7 +229,7 @@ const projects = [
   {
     title: "KidGage — Multi-Academy Booking Platform",
     category: "SaaS",
-    meta: "Booking SaaS Platform",
+    meta: "Booking SaaS + PWA Platform",
     description:
       "Multi-academy booking system with parent accounts, activity packages, booking sessions, payments, certificates and PWA-ready flows.",
     tags: ["SaaS", "Bookings", "PWA", "Payments"],
@@ -287,8 +322,8 @@ const process = [
     text: "Design clean screens, mobile flows and premium visual direction.",
   },
   {
-    title: "Frontend Development",
-    text: "Build responsive React interfaces with reusable components.",
+    title: "Frontend / App Development",
+    text: "Build responsive React interfaces and Flutter-ready mobile app experiences.",
   },
   {
     title: "Backend & APIs",
@@ -675,7 +710,7 @@ function Hero() {
             transition={{ duration: 0.45, delay: 0.6 }}
           >
             <Code2 size={15} />
-            Full Stack Developer
+            Full Stack & Flutter Developer
           </motion.div>
         </div>
 
@@ -686,8 +721,9 @@ function Hero() {
             <span>About Me</span>
             <h1>Hi, I’m {profile.firstName}</h1>
             <p>
-              I create modern websites, dashboards, SaaS platforms and automation systems
-              with clean UI, scalable backend structure and launch-focused execution.
+              I create modern websites, mobile apps, dashboards, SaaS platforms and
+              automation systems with clean UI, scalable backend structure and
+              launch-focused execution.
             </p>
           </div>
 
@@ -698,7 +734,7 @@ function Hero() {
 
           <div className="poster-header-item">
             <span>Focus</span>
-            <strong>React, Node.js, MongoDB</strong>
+            <strong>React, Node.js, MongoDB, Flutter</strong>
           </div>
 
           <div className="poster-header-item">
@@ -728,7 +764,16 @@ function Hero() {
             <Mail size={14} />
           </a>
 
-          {["React", "Node", "MongoDB", "UI/UX", "WordPress", "Automation"].map((item) => (
+          {[
+            "React",
+            "Node",
+            "MongoDB",
+            "Flutter",
+            "Dart",
+            "UI/UX",
+            "WordPress",
+            "Automation",
+          ].map((item) => (
             <span className="poster-header-chip dark" key={item}>
               {item}
             </span>
@@ -759,7 +804,7 @@ function Services() {
       <SectionHeading
         eyebrow="Services"
         title="Digital solutions from idea to launch"
-        description="I work across frontend, backend, UI/UX and business operations to create practical systems that are clean, scalable and easy to use."
+        description="I work across web development, mobile apps, backend APIs, UI/UX and business operations to create practical systems that are clean, scalable and easy to use."
       />
 
       <div className="service-grid">
@@ -793,7 +838,7 @@ function Work() {
       <SectionHeading
         eyebrow="Selected Work"
         title="Recent full-stack and digital systems"
-        description="A mix of SaaS platforms, internal systems, corporate websites, admin dashboards and automation-focused products."
+        description="A mix of SaaS platforms, internal systems, corporate websites, admin dashboards, mobile-first flows and automation-focused products."
       />
 
       <div className="filter-bar">
@@ -845,7 +890,7 @@ function Stack() {
         <SectionHeading
           eyebrow="Tech Stack"
           title="Tools I use to build modern products"
-          description="My work combines software engineering, design thinking, CMS experience and business process understanding."
+          description="My work combines software engineering, Flutter mobile app development, design thinking, CMS experience and business process understanding."
         />
 
         <div className="stack-group-grid">
@@ -885,9 +930,10 @@ function Stack() {
         <h3>What makes my work different?</h3>
 
         <p>
-          I do not only create screens. I think through the full business flow: users,
-          admin roles, data structure, approvals, payments, notifications, reporting,
-          deployment and long-term maintainability.
+          I do not only create screens. I think through the full business flow:
+          users, admin roles, data structure, approvals, payments, notifications,
+          reporting, deployment and long-term maintainability across web and mobile
+          products.
         </p>
 
         <div className="quality-list">
@@ -916,9 +962,9 @@ function PwaApps() {
   return (
     <section id="pwa-apps" className="section pwa-section">
       <SectionHeading
-        eyebrow="PWA Apps"
-        title="App-like web platforms for mobile-first businesses"
-        description="I build Progressive Web App experiences that feel fast, modern and practical for users, admins, parents, clients and internal teams."
+        eyebrow="PWA & Mobile Apps"
+        title="App-like web platforms and Flutter mobile apps"
+        description="I build Progressive Web App experiences and Flutter-ready mobile product flows that feel fast, modern and practical for users, admins, parents, clients and internal teams."
       />
 
       <div className="pwa-showcase">
@@ -942,13 +988,13 @@ function PwaApps() {
 
                 <div>
                   <strong>Business App</strong>
-                  <small>Installed PWA</small>
+                  <small>PWA / Flutter Flow</small>
                 </div>
               </div>
 
               <div className="pwa-app-hero">
                 <span>Dashboard</span>
-                <strong>Fast, responsive and installable</strong>
+                <strong>Fast, responsive and app-ready</strong>
               </div>
 
               <div className="pwa-app-list">
@@ -986,18 +1032,21 @@ function PwaApps() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.5 }}
           >
-            <span className="eyebrow">Why PWA?</span>
+            <span className="eyebrow">Why PWA / Flutter?</span>
 
-            <h3>One codebase. Website reach. App-like experience.</h3>
+            <h3>Website reach. App-like experience. Mobile app scalability.</h3>
 
             <p>
-              A PWA is useful for booking platforms, dashboards, internal systems, academy
-              portals, product tools and SaaS applications where users need fast access from
-              mobile without forcing a full app store release.
+              PWA and Flutter flows are useful for booking platforms, dashboards,
+              internal systems, academy portals, product tools and SaaS applications
+              where users need fast mobile access, clean screens and practical business
+              workflows.
             </p>
 
             <div className="pwa-tags">
               {[
+                "Flutter",
+                "Dart",
                 "Installable",
                 "Responsive",
                 "Mobile-first",
@@ -1038,7 +1087,7 @@ function Experience() {
       <SectionHeading
         eyebrow="Experience"
         title="Professional background"
-        description="A practical mix of full-stack development, UI/UX, branding, project leadership and digital transformation work."
+        description="A practical mix of full-stack development, Flutter/mobile app flows, UI/UX, branding, project leadership and digital transformation work."
       />
 
       <div className="timeline">
@@ -1140,12 +1189,13 @@ function Contact() {
         <span className="eyebrow">Contact</span>
 
         <h2>
-          <TextReveal>Need a website, web app, dashboard or automation system?</TextReveal>
+          <TextReveal>Need a website, mobile app, dashboard or automation system?</TextReveal>
         </h2>
 
         <p>
-          I can help plan, design and develop a professional digital product that fits your
-          business workflow and growth stage.
+          I can help plan, design and develop a professional website, mobile app,
+          dashboard or automation system that fits your business workflow and growth
+          stage.
         </p>
 
         <div className="contact-actions">
@@ -1184,7 +1234,7 @@ function Contact() {
           </span>
 
           <span>
-            <BadgeCheck size={16} /> Freelance / Contract / Product Build
+            <BadgeCheck size={16} /> Freelance / Contract / Web / Mobile / Product Build
           </span>
         </div>
       </motion.div>
@@ -1212,7 +1262,7 @@ function FloatingDock() {
         <BriefcaseBusiness size={18} />
       </a>
 
-      <a href="#pwa-apps" aria-label="PWA Apps">
+      <a href="#pwa-apps" aria-label="PWA and Mobile Apps">
         <MonitorSmartphone size={18} />
       </a>
 
@@ -1252,7 +1302,7 @@ function Footer() {
         </a>
 
         <a href="#pwa-apps">
-          <MonitorSmartphone size={16} /> PWA Apps
+          <MonitorSmartphone size={16} /> Apps
         </a>
 
         <a href="#contact">

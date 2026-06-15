@@ -2477,3 +2477,43 @@ html[data-theme="light"] .mobile-whatsapp {
     min-height: 440px;
   }
 }
+
+.site-header {
+  max-width: 1140px;
+  width: calc(100% - 32px);
+  margin: 16px auto 0;
+  padding: 10px 12px;
+  gap: 14px;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  flex: 1;
+  justify-content: center;
+  min-width: 0;
+}
+
+.desktop-nav a {
+  white-space: nowrap;
+  font-size: 13px;
+  padding: 10px 13px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.brand {
+  flex-shrink: 0;
+}
+
+.whatsapp-cta,
+.header-cta {
+  white-space: nowrap;
+}
