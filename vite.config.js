@@ -13,7 +13,8 @@ export default defineConfig({
         "favicon.ico",
         "favicon-32x32.png",
         "apple-touch-icon.png",
-        "assets/suhail-avatar-cartoon.png.png",
+        "pwa-192x192.png",
+        "pwa-512x512.png",
       ],
 
       manifest: {
@@ -61,6 +62,7 @@ export default defineConfig({
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,jpg,jpeg}"],
         cleanupOutdatedCaches: true,
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
       },
 
       devOptions: {
