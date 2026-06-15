@@ -81,6 +81,7 @@ const navItems = [
   { label: "Work", href: "#work" },
   { label: "Services", href: "#services" },
   { label: "Stack", href: "#stack" },
+  { label: "PWA Apps", href: "#pwa-apps" },
   { label: "Experience", href: "#experience" },
   { label: "Process", href: "#process" },
   { label: "Contact", href: "#contact" },
@@ -155,6 +156,29 @@ const stackGroups = [
   },
 ];
 
+const pwaApps = [
+  {
+    icon: MonitorSmartphone,
+    title: "Installable App Experience",
+    text: "Web apps that can be installed on mobile and desktop with an app-like interface.",
+  },
+  {
+    icon: Zap,
+    title: "Fast Loading Interface",
+    text: "Optimized frontend structure, smooth navigation and lightweight user flows.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Secure User Sessions",
+    text: "Authentication-ready structure for parents, admins, staff, clients and business users.",
+  },
+  {
+    icon: Rocket,
+    title: "Launch-Ready Setup",
+    text: "Manifest, icons, splash direction, responsive screens and production deployment support.",
+  },
+];
+
 const projectCategories = ["All", "SaaS", "Automation", "Corporate", "CMS"];
 
 const projects = [
@@ -218,7 +242,7 @@ const experience = [
   {
     company: "NextMove Holding",
     role: "Full Stack Developer & Digital Solutions Specialist",
-    period: " July 2025 — Present",
+    period: "July 2025 — Present",
     points: [
       "Building internal business applications, portals, dashboards and workflow automation.",
       "Supporting API integrations, corporate websites, branding systems and enterprise solutions.",
@@ -888,6 +912,126 @@ function Stack() {
   );
 }
 
+function PwaApps() {
+  return (
+    <section id="pwa-apps" className="section pwa-section">
+      <SectionHeading
+        eyebrow="PWA Apps"
+        title="App-like web platforms for mobile-first businesses"
+        description="I build Progressive Web App experiences that feel fast, modern and practical for users, admins, parents, clients and internal teams."
+      />
+
+      <div className="pwa-showcase">
+        <motion.div
+          className="pwa-phone-card"
+          initial={{ opacity: 0, x: -26, scale: 0.96 }}
+          whileInView={{ opacity: 1, x: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.55 }}
+        >
+          <div className="pwa-phone-frame">
+            <div className="pwa-phone-top">
+              <span />
+            </div>
+
+            <div className="pwa-app-screen">
+              <div className="pwa-app-header">
+                <span className="pwa-app-logo">
+                  <MonitorSmartphone size={18} />
+                </span>
+
+                <div>
+                  <strong>Business App</strong>
+                  <small>Installed PWA</small>
+                </div>
+              </div>
+
+              <div className="pwa-app-hero">
+                <span>Dashboard</span>
+                <strong>Fast, responsive and installable</strong>
+              </div>
+
+              <div className="pwa-app-list">
+                <span>
+                  <CheckCircle2 size={15} />
+                  Mobile-first UI
+                </span>
+
+                <span>
+                  <CheckCircle2 size={15} />
+                  Smooth user flows
+                </span>
+
+                <span>
+                  <CheckCircle2 size={15} />
+                  Admin-ready structure
+                </span>
+              </div>
+
+              <div className="pwa-bottom-nav">
+                <span className="active" />
+                <span />
+                <span />
+                <span />
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="pwa-content">
+          <motion.div
+            className="pwa-main-card"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.5 }}
+          >
+            <span className="eyebrow">Why PWA?</span>
+
+            <h3>One codebase. Website reach. App-like experience.</h3>
+
+            <p>
+              A PWA is useful for booking platforms, dashboards, internal systems, academy
+              portals, product tools and SaaS applications where users need fast access from
+              mobile without forcing a full app store release.
+            </p>
+
+            <div className="pwa-tags">
+              {[
+                "Installable",
+                "Responsive",
+                "Mobile-first",
+                "Dashboard-ready",
+                "Fast loading",
+                "Launch-focused",
+              ].map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+            </div>
+          </motion.div>
+
+          <div className="pwa-feature-grid">
+            {pwaApps.map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <TiltCard className="pwa-feature-card" key={item.title}>
+                  <div className="pwa-feature-icon">
+                    <Icon size={22} />
+                  </div>
+
+                  <strong>{item.title}</strong>
+                  <p>{item.text}</p>
+                </TiltCard>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Experience() {
   return (
     <section id="experience" className="section">
@@ -1068,6 +1212,10 @@ function FloatingDock() {
         <BriefcaseBusiness size={18} />
       </a>
 
+      <a href="#pwa-apps" aria-label="PWA Apps">
+        <MonitorSmartphone size={18} />
+      </a>
+
       <a href="#services" aria-label="Services">
         <Sparkles size={18} />
       </a>
@@ -1103,12 +1251,16 @@ function Footer() {
           <Code2 size={16} /> Work
         </a>
 
+        <a href="#pwa-apps">
+          <MonitorSmartphone size={16} /> PWA Apps
+        </a>
+
         <a href="#contact">
           <ExternalLink size={16} /> Contact
         </a>
       </div>
 
-      <p>© {new Date().getFullYear()} Suhail Iqbal. Built with React .</p>
+      <p>© {new Date().getFullYear()} Suhail Iqbal. Built with React.</p>
     </footer>
   );
 }
@@ -1136,6 +1288,7 @@ function App() {
         <Services />
         <Work />
         <Stack />
+        <PwaApps />
         <Experience />
         <Process />
         <Testimonials />
