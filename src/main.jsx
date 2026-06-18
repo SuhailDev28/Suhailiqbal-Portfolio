@@ -421,7 +421,7 @@ const characterStates = {
     emoji: "🧠",
     text: "Thinking flow",
     className: "state-process",
-    image: `${import.meta.env.BASE_URL}assets/character-process.png`,
+    image: `${import.meta.env.BASE_URL}assets/character-process2.png`,
   },
   contact: {
     label: "Contact",
