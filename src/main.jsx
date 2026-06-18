@@ -40,9 +40,6 @@ const profile = {
   // Hero / header image
   photo: `${import.meta.env.BASE_URL}assets/suhail-avatar-cartoon2.png`,
 
-  // Separate full-body floating character image
-  characterPhoto: `${import.meta.env.BASE_URL}assets/suhail-scroll-character.png`,
-
   role: "Full Stack & Flutter Developer",
   location: "Doha, Qatar",
   email: "suhailiqbal28@gmail.com",
@@ -376,48 +373,56 @@ const characterStates = {
     emoji: "👋",
     text: "Hi, I’m Suhail",
     className: "state-hero",
+    image: `${import.meta.env.BASE_URL}assets/character-contact.png`,
   },
   services: {
     label: "Services",
-    emoji: "⚡",
-    text: "Building solutions",
+    emoji: "👍",
+    text: "I can build it",
     className: "state-services",
+    image: `${import.meta.env.BASE_URL}assets/character-services.png`,
   },
   work: {
     label: "Work",
-    emoji: "🚀",
-    text: "Projects in action",
+    emoji: "👉",
+    text: "See my projects",
     className: "state-work",
+    image: `${import.meta.env.BASE_URL}assets/character-work.png`,
   },
   stack: {
     label: "Stack",
     emoji: "💻",
-    text: "Tech mode",
+    text: "Coding mode",
     className: "state-stack",
+    image: `${import.meta.env.BASE_URL}assets/character-stack.png`,
   },
   "pwa-apps": {
     label: "Apps",
     emoji: "📱",
     text: "Mobile ready",
     className: "state-apps",
+    image: `${import.meta.env.BASE_URL}assets/character-apps.png`,
   },
   experience: {
     label: "Experience",
     emoji: "🏆",
-    text: "Pro journey",
+    text: "Professional journey",
     className: "state-experience",
+    image: `${import.meta.env.BASE_URL}assets/character-experience.png`,
   },
   process: {
     label: "Process",
     emoji: "🧠",
-    text: "Planning flow",
+    text: "Thinking flow",
     className: "state-process",
+    image: `${import.meta.env.BASE_URL}assets/character-process.png`,
   },
   contact: {
     label: "Contact",
     emoji: "💬",
     text: "Let’s talk",
     className: "state-contact",
+    image: `${import.meta.env.BASE_URL}assets/character-contact.png`,
   },
 };
 
@@ -627,7 +632,7 @@ function ScrollCharacter() {
       <AnimatePresence mode="wait">
         <motion.div
           className="scroll-character-bubble"
-          key={activeSection}
+          key={`${activeSection}-bubble`}
           initial={{ opacity: 0, y: 10, scale: 0.9 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -8, scale: 0.9 }}
@@ -646,8 +651,8 @@ function ScrollCharacter() {
             activeSection === "work"
               ? [0, -2, 2, 0]
               : activeSection === "contact"
-              ? [0, 2.5, -1.5, 0]
-              : [0, 1.5, 0],
+                ? [0, 2.5, -1.5, 0]
+                : [0, 1.5, 0],
         }}
         transition={{
           duration: activeSection === "work" ? 3 : 4.5,
@@ -657,14 +662,18 @@ function ScrollCharacter() {
       >
         <div className="character-glow" />
 
-        <img
-          src={profile.characterPhoto}
-          alt={`${profile.name} 3D scroll character`}
-          className="character-image"
-        />
-
-        <span className="character-eye-glint one" />
-        <span className="character-eye-glint two" />
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={state.image}
+            src={state.image}
+            alt={`${profile.name} ${state.label} 3D character`}
+            className="character-image"
+            initial={{ opacity: 0, scale: 0.86, y: 18, rotate: -4 }}
+            animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
+            exit={{ opacity: 0, scale: 0.86, y: -12, rotate: 4 }}
+            transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+          />
+        </AnimatePresence>
 
         <motion.span
           className="character-expression"
