@@ -387,7 +387,7 @@ const characterStates = {
     emoji: "👉",
     text: "See my projects",
     className: "state-work",
-    image: `${import.meta.env.BASE_URL}assets/character-work.png`,
+    image: `${import.meta.env.BASE_URL}assets/character-work-2.png`,
   },
   stack: {
     label: "Stack",
