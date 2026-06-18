@@ -36,7 +36,13 @@ import "./styles.css";
 const profile = {
   name: "Suhail Iqbal",
   firstName: "Suhail",
-  photo: `${import.meta.env.BASE_URL}assets/suhail-avatar-cartoon.png.png`,
+
+  // Hero / header image
+  photo: `${import.meta.env.BASE_URL}assets/suhail-avatar-cartoon2.png`,
+
+  // Separate full-body floating character image
+  characterPhoto: `${import.meta.env.BASE_URL}assets/suhail-scroll-character.png`,
+
   role: "Full Stack & Flutter Developer",
   location: "Doha, Qatar",
   email: "suhailiqbal28@gmail.com",
@@ -187,7 +193,14 @@ const stackGroups = [
   {
     title: "Design & Delivery",
     icon: Palette,
-    items: ["Figma", "Photoshop", "Illustrator", "SEO", "Branding", "Deployment"],
+    items: [
+      "Figma",
+      "Photoshop",
+      "Illustrator",
+      "SEO",
+      "Branding",
+      "Deployment",
+    ],
   },
 ];
 
@@ -357,6 +370,57 @@ const testimonials = [
   },
 ];
 
+const characterStates = {
+  hero: {
+    label: "Welcome",
+    emoji: "👋",
+    text: "Hi, I’m Suhail",
+    className: "state-hero",
+  },
+  services: {
+    label: "Services",
+    emoji: "⚡",
+    text: "Building solutions",
+    className: "state-services",
+  },
+  work: {
+    label: "Work",
+    emoji: "🚀",
+    text: "Projects in action",
+    className: "state-work",
+  },
+  stack: {
+    label: "Stack",
+    emoji: "💻",
+    text: "Tech mode",
+    className: "state-stack",
+  },
+  "pwa-apps": {
+    label: "Apps",
+    emoji: "📱",
+    text: "Mobile ready",
+    className: "state-apps",
+  },
+  experience: {
+    label: "Experience",
+    emoji: "🏆",
+    text: "Pro journey",
+    className: "state-experience",
+  },
+  process: {
+    label: "Process",
+    emoji: "🧠",
+    text: "Planning flow",
+    className: "state-process",
+  },
+  contact: {
+    label: "Contact",
+    emoji: "💬",
+    text: "Let’s talk",
+    className: "state-contact",
+  },
+};
+
 const fadeUp = {
   hidden: { opacity: 0, y: 26 },
   visible: { opacity: 1, y: 0 },
@@ -389,6 +453,54 @@ function useTheme() {
   }
 
   return { theme, toggleTheme };
+}
+
+function useActiveSection() {
+  const [activeSection, setActiveSection] = React.useState("hero");
+
+  React.useEffect(() => {
+    const hero = document.querySelector(".poster-header-section");
+    if (hero && !hero.id) {
+      hero.id = "hero";
+    }
+
+    const sectionIds = [
+      "hero",
+      "services",
+      "work",
+      "stack",
+      "pwa-apps",
+      "experience",
+      "process",
+      "contact",
+    ];
+
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean);
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visibleSections = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visibleSections[0]?.target?.id) {
+          setActiveSection(visibleSections[0].target.id);
+        }
+      },
+      {
+        threshold: [0.2, 0.35, 0.5, 0.7],
+        rootMargin: "-18% 0px -42% 0px",
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return activeSection;
 }
 
 function ScrollProgress() {
@@ -497,6 +609,74 @@ function TextReveal({ children, className = "" }) {
           </motion.span>
         ))}
     </motion.span>
+  );
+}
+
+function ScrollCharacter() {
+  const activeSection = useActiveSection();
+  const state = characterStates[activeSection] || characterStates.hero;
+
+  return (
+    <motion.div
+      className={`scroll-character ${state.className}`}
+      initial={{ opacity: 0, x: 70, scale: 0.82 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      aria-label={`Animated portfolio character: ${state.label}`}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          className="scroll-character-bubble"
+          key={activeSection}
+          initial={{ opacity: 0, y: 10, scale: 0.9 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -8, scale: 0.9 }}
+          transition={{ duration: 0.25 }}
+        >
+          <span>{state.emoji}</span>
+          <strong>{state.text}</strong>
+        </motion.div>
+      </AnimatePresence>
+
+      <motion.div
+        className="scroll-character-stage"
+        animate={{
+          y: [0, -10, 0],
+          rotate:
+            activeSection === "work"
+              ? [0, -2, 2, 0]
+              : activeSection === "contact"
+              ? [0, 2.5, -1.5, 0]
+              : [0, 1.5, 0],
+        }}
+        transition={{
+          duration: activeSection === "work" ? 3 : 4.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <div className="character-glow" />
+
+        <img
+          src={profile.characterPhoto}
+          alt={`${profile.name} 3D scroll character`}
+          className="character-image"
+        />
+
+        <span className="character-eye-glint one" />
+        <span className="character-eye-glint two" />
+
+        <motion.span
+          className="character-expression"
+          key={`${activeSection}-expression`}
+          initial={{ opacity: 0, scale: 0.5, rotate: -12 }}
+          animate={{ opacity: 1, scale: 1, rotate: 0 }}
+          transition={{ duration: 0.28 }}
+        >
+          {state.emoji}
+        </motion.span>
+      </motion.div>
+    </motion.div>
   );
 }
 
@@ -1333,6 +1513,8 @@ function App() {
 
       <Header theme={theme} toggleTheme={toggleTheme} />
 
+      <ScrollCharacter />
+
       <main id="main-content">
         <Hero />
         <Services />
@@ -1351,4 +1533,10 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+const rootElement = document.getElementById("root");
+
+if (!window.__SUHAIL_PORTFOLIO_ROOT__) {
+  window.__SUHAIL_PORTFOLIO_ROOT__ = ReactDOM.createRoot(rootElement);
+}
+
+window.__SUHAIL_PORTFOLIO_ROOT__.render(<App />);
