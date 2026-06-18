@@ -2167,7 +2167,13 @@ html[data-theme="light"] .timeline-header strong {
     animation: none !important;
   }
 }
-.scroll-character {
+
+
+/* =========================
+   Floating Scroll Character
+   ========================= */
+
+   .scroll-character {
   position: fixed;
   right: clamp(14px, 2.4vw, 34px);
   bottom: clamp(72px, 7vw, 110px);
@@ -2386,5 +2392,47 @@ html[data-theme="light"] .timeline-header strong {
 
   .character-eye-glint {
     display: none;
+  }
+}
+
+/* Smooth scroll + parallax polish */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
+}
+
+.scroll-character {
+  will-change: transform;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.scroll-character-stage {
+  will-change: transform;
+  transform-origin: center bottom;
+}
+
+.character-image {
+  will-change: transform, filter, opacity;
+  backface-visibility: hidden;
+}
+
+.scroll-character-bubble {
+  will-change: transform, opacity;
+}
+
+.character-expression {
+  will-change: transform, opacity;
+}
+
+/* Softer on mobile */
+@media (max-width: 640px) {
+  .scroll-character {
+    transform-origin: right bottom;
+  }
+
+  .scroll-character-stage {
+    filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.35));
   }
 }
