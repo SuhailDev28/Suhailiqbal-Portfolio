@@ -1,6 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -384,7 +390,7 @@ const characterStates = {
   },
   work: {
     label: "Work",
-    emoji: "👉",
+    emoji: "👈",
     text: "See my projects",
     className: "state-work",
     image: `${import.meta.env.BASE_URL}assets/character-work-2.png`,
@@ -415,7 +421,7 @@ const characterStates = {
     emoji: "🧠",
     text: "Thinking flow",
     className: "state-process",
-    image: `${import.meta.env.BASE_URL}assets/character-process.png`,
+    image: `${import.meta.env.BASE_URL}assets/character-process2.png`,
   },
   contact: {
     label: "Contact",
@@ -465,6 +471,7 @@ function useActiveSection() {
 
   React.useEffect(() => {
     const hero = document.querySelector(".poster-header-section");
+
     if (hero && !hero.id) {
       hero.id = "hero";
     }
@@ -480,29 +487,59 @@ function useActiveSection() {
       "contact",
     ];
 
-    const sections = sectionIds
-      .map((id) => document.getElementById(id))
-      .filter(Boolean);
+    let ticking = false;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visibleSections = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+    function getActiveSection() {
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      const checkPoint = viewportHeight * 0.42;
 
-        if (visibleSections[0]?.target?.id) {
-          setActiveSection(visibleSections[0].target.id);
+      let currentSection = "hero";
+      let smallestDistance = Number.POSITIVE_INFINITY;
+
+      sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (!section) return;
+
+        const rect = section.getBoundingClientRect();
+
+        const isNearViewport =
+          rect.top <= viewportHeight * 0.72 && rect.bottom >= viewportHeight * 0.16;
+
+        if (!isNearViewport) return;
+
+        const distance = Math.abs(rect.top - checkPoint);
+
+        if (distance < smallestDistance) {
+          smallestDistance = distance;
+          currentSection = id;
         }
-      },
-      {
-        threshold: [0.2, 0.35, 0.5, 0.7],
-        rootMargin: "-18% 0px -42% 0px",
-      }
-    );
+      });
 
-    sections.forEach((section) => observer.observe(section));
+      setActiveSection((previous) =>
+        previous === currentSection ? previous : currentSection
+      );
+    }
 
-    return () => observer.disconnect();
+    function handleScroll() {
+      if (ticking) return;
+
+      ticking = true;
+
+      window.requestAnimationFrame(() => {
+        getActiveSection();
+        ticking = false;
+      });
+    }
+
+    getActiveSection();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", getActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", getActiveSection);
+    };
   }, []);
 
   return activeSection;
@@ -621,11 +658,30 @@ function ScrollCharacter() {
   const activeSection = useActiveSection();
   const state = characterStates[activeSection] || characterStates.hero;
 
+  const { scrollYProgress } = useScroll();
+
+  const smoothScroll = useSpring(scrollYProgress, {
+    stiffness: 65,
+    damping: 24,
+    mass: 0.7,
+  });
+
+  const parallaxY = useTransform(smoothScroll, [0, 1], [0, -95]);
+  const parallaxX = useTransform(smoothScroll, [0, 1], [0, -22]);
+  const parallaxScale = useTransform(smoothScroll, [0, 0.4, 1], [1, 1.035, 0.96]);
+  const parallaxRotate = useTransform(smoothScroll, [0, 0.5, 1], [0, -2, 3]);
+
   return (
     <motion.div
       className={`scroll-character ${state.className}`}
+      style={{
+        y: parallaxY,
+        x: parallaxX,
+        scale: parallaxScale,
+        rotate: parallaxRotate,
+      }}
       initial={{ opacity: 0, x: 70, scale: 0.82 }}
-      animate={{ opacity: 1, x: 0, scale: 1 }}
+      animate={{ opacity: 1 }}
       transition={{ duration: 0.7, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
       aria-label={`Animated portfolio character: ${state.label}`}
     >
@@ -633,10 +689,10 @@ function ScrollCharacter() {
         <motion.div
           className="scroll-character-bubble"
           key={`${activeSection}-bubble`}
-          initial={{ opacity: 0, y: 10, scale: 0.9 }}
+          initial={{ opacity: 0, y: 10, scale: 0.92 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: -8, scale: 0.9 }}
-          transition={{ duration: 0.25 }}
+          exit={{ opacity: 0, y: -8, scale: 0.92 }}
+          transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
         >
           <span>{state.emoji}</span>
           <strong>{state.text}</strong>
@@ -646,21 +702,32 @@ function ScrollCharacter() {
       <motion.div
         className="scroll-character-stage"
         animate={{
-          y: [0, -10, 0],
+          y: [0, -12, 0],
           rotate:
             activeSection === "work"
-              ? [0, -2, 2, 0]
+              ? [0, -2.5, 2.5, 0]
               : activeSection === "contact"
                 ? [0, 2.5, -1.5, 0]
                 : [0, 1.5, 0],
         }}
         transition={{
-          duration: activeSection === "work" ? 3 : 4.5,
+          duration: activeSection === "work" ? 3 : 4.6,
           repeat: Infinity,
           ease: "easeInOut",
         }}
       >
-        <div className="character-glow" />
+        <motion.div
+          className="character-glow"
+          animate={{
+            scale: [1, 1.12, 1],
+            opacity: [0.75, 1, 0.75],
+          }}
+          transition={{
+            duration: 4,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
         <AnimatePresence mode="wait">
           <motion.img
@@ -668,10 +735,31 @@ function ScrollCharacter() {
             src={state.image}
             alt={`${profile.name} ${state.label} 3D character`}
             className="character-image"
-            initial={{ opacity: 0, scale: 0.86, y: 18, rotate: -4 }}
-            animate={{ opacity: 1, scale: 1, y: 0, rotate: 0 }}
-            exit={{ opacity: 0, scale: 0.86, y: -12, rotate: 4 }}
-            transition={{ duration: 0.34, ease: [0.16, 1, 0.3, 1] }}
+            initial={{
+              opacity: 0,
+              scale: 0.88,
+              y: 18,
+              rotate: -4,
+              filter: "blur(8px)",
+            }}
+            animate={{
+              opacity: 1,
+              scale: 1,
+              y: 0,
+              rotate: 0,
+              filter: "blur(0px)",
+            }}
+            exit={{
+              opacity: 0,
+              scale: 0.9,
+              y: -12,
+              rotate: 4,
+              filter: "blur(8px)",
+            }}
+            transition={{
+              duration: 0.36,
+              ease: [0.16, 1, 0.3, 1],
+            }}
           />
         </AnimatePresence>
 
@@ -679,8 +767,19 @@ function ScrollCharacter() {
           className="character-expression"
           key={`${activeSection}-expression`}
           initial={{ opacity: 0, scale: 0.5, rotate: -12 }}
-          animate={{ opacity: 1, scale: 1, rotate: 0 }}
-          transition={{ duration: 0.28 }}
+          animate={{
+            opacity: 1,
+            scale: [1, 1.08, 1],
+            rotate: 0,
+          }}
+          transition={{
+            opacity: { duration: 0.25 },
+            scale: {
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            },
+          }}
         >
           {state.emoji}
         </motion.span>
@@ -1549,3 +1648,16 @@ if (!window.__SUHAIL_PORTFOLIO_ROOT__) {
 }
 
 window.__SUHAIL_PORTFOLIO_ROOT__.render(<App />);
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker
+      .register("/sw.js")
+      .then(() => {
+        console.log("Service Worker registered");
+      })
+      .catch((error) => {
+        console.error("Service Worker registration failed:", error);
+      });
+  });
+}

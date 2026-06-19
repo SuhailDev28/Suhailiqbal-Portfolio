@@ -3080,3 +3080,12 @@ html {
     overflow-wrap: break-word;
   }
 }
+
+.scroll-character.state-story .character-image {
+  transform: translateZ(30px) rotate(-1deg) scale(1.03);
+  filter: saturate(1.14) brightness(1.04);
+}
+
+.scroll-character.state-story .character-glow {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent 68%);
+}
