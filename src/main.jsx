@@ -390,7 +390,7 @@ const characterStates = {
   },
   work: {
     label: "Work",
-    emoji: "👉",
+    emoji: "👈",
     text: "See my projects",
     className: "state-work",
     image: `${import.meta.env.BASE_URL}assets/character-work-2.png`,
