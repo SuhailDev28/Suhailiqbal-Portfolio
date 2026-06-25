@@ -849,6 +849,7 @@ html[data-theme="light"] .eyebrow {
 .process-card,
 .testimonial-card,
 .contact-card,
+.pricing-card,
 .pwa-main-card,
 .pwa-phone-card {
   border: 1px solid var(--line);
@@ -972,7 +973,8 @@ html[data-theme="light"] .eyebrow {
 .project-card,
 .highlight-card,
 .stack-group,
-.testimonial-card {
+.testimonial-card,
+.pricing-card {
   border-radius: var(--radius-lg);
 }
 
@@ -2365,6 +2367,15 @@ html[data-theme="light"] .timeline-header strong {
   background: radial-gradient(circle, rgba(56, 189, 248, 0.42), transparent 68%);
 }
 
+.scroll-character.state-pricing .character-image {
+  transform: translateZ(30px) rotate(1.5deg) scale(1.035);
+  filter: saturate(1.14) brightness(1.05) contrast(1.04);
+}
+
+.scroll-character.state-pricing .character-glow {
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.42), transparent 68%);
+}
+
 @media (max-width: 980px) {
   .scroll-character {
     width: 140px;
@@ -3088,4 +3099,288 @@ html {
 
 .scroll-character.state-story .character-glow {
   background: radial-gradient(circle, rgba(56, 189, 248, 0.4), transparent 68%);
+}
+/* =========================
+   PRICING SECTION
+   Add this to styles.css
+   ========================= */
+
+.pricing-section {
+  position: relative;
+}
+
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 34px;
+}
+
+.pricing-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 28px;
+  overflow: hidden;
+}
+
+.pricing-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(56, 189, 248, 0.16), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 46%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.pricing-card:hover::before,
+.pricing-card.featured::before {
+  opacity: 1;
+}
+
+.pricing-card.featured {
+  border-color: rgba(56, 189, 248, 0.42);
+  box-shadow: 0 28px 90px rgba(14, 165, 233, 0.18);
+}
+
+.pricing-card-top {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.pricing-badge,
+.pricing-featured {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  width: fit-content;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 12px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.075);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.pricing-featured {
+  color: var(--primary);
+  border-color: rgba(56, 189, 248, 0.34);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.pricing-card h3 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 12px;
+  color: var(--text);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  line-height: 1.12;
+}
+
+.pricing-card > p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.pricing-quote-label {
+  position: relative;
+  z-index: 1;
+  margin: 24px 0;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.pricing-quote-label span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.pricing-quote-label strong {
+  display: block;
+  color: var(--text);
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.pricing-feature-list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pricing-feature-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.pricing-feature-list svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+  color: var(--success);
+}
+
+.pricing-note {
+  position: relative;
+  z-index: 1;
+  margin-top: 22px !important;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.pricing-actions {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.pricing-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-size: 13px;
+  font-weight: 900;
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.pricing-btn:hover {
+  transform: translateY(-2px);
+}
+
+.pricing-btn.primary {
+  color: #020617;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border: 1px solid transparent;
+}
+
+.pricing-btn.secondary {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--line);
+}
+
+.pricing-btn.secondary:hover {
+  border-color: rgba(56, 189, 248, 0.34);
+  background: rgba(56, 189, 248, 0.1);
+}
+
+@media (max-width: 980px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-card {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 560px) {
+  .pricing-card-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .pricing-actions {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* =========================
+   PRICING BUTTON FIX
+   ========================= */
+
+.pricing-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.pricing-btn {
+  width: 100%;
+  min-width: 0;
+  min-height: 52px;
+  padding: 0 18px;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.pricing-btn.primary {
+  font-size: 13px;
+}
+
+.pricing-btn.secondary {
+  font-size: 13px;
+}
+
+@media (min-width: 981px) {
+  .pricing-card {
+    padding: 26px;
+  }
+
+  .pricing-actions {
+    grid-template-columns: 1.15fr 0.85fr;
+  }
+}
+
+@media (max-width: 1180px) and (min-width: 981px) {
+  .pricing-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-btn {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 560px) {
+  .pricing-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-btn {
+    width: 100%;
+  }
 }

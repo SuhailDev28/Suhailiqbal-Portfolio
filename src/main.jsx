@@ -96,6 +96,7 @@ const navItems = [
   { label: "Apps", href: "#pwa-apps" },
   { label: "Experience", href: "#experience" },
   { label: "Process", href: "#process" },
+  { label: "Pricing", href: "#pricing" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -355,6 +356,56 @@ const process = [
   },
 ];
 
+const pricingPackages = [
+  {
+    badge: "Starter",
+    title: "Website / Landing Page",
+    description:
+      "For businesses that need a polished online presence, clear service pages and a premium responsive layout.",
+    features: [
+      "Responsive website or landing page",
+      "Modern UI design direction",
+      "Contact / WhatsApp enquiry flow",
+      "Basic SEO-ready page structure",
+      "Deployment support",
+    ],
+    note: "Best for company websites, personal brands and service pages.",
+    featured: false,
+  },
+  {
+    badge: "Most Requested",
+    title: "Web App / Dashboard",
+    description:
+      "For startups and businesses that need a functional web platform with admin panels, APIs and database-backed workflows.",
+    features: [
+      "React frontend interface",
+      "Node.js / Express backend",
+      "MongoDB database structure",
+      "Admin dashboard and CRUD modules",
+      "Authentication and role-based access",
+      "Production deployment guidance",
+    ],
+    note: "Best for SaaS, portals, booking systems and internal business tools.",
+    featured: true,
+  },
+  {
+    badge: "Custom",
+    title: "Mobile App / Full Product",
+    description:
+      "For larger projects that need mobile app flows, custom modules, automation, integrations and launch-ready product planning.",
+    features: [
+      "Flutter mobile app direction",
+      "PWA or mobile-first web app",
+      "Custom backend APIs",
+      "Payment / notification integrations",
+      "Workflow automation modules",
+      "Ongoing improvement roadmap",
+    ],
+    note: "Best for full product builds, client portals and business automation systems.",
+    featured: false,
+  },
+];
+
 const testimonials = [
   {
     quote:
@@ -423,6 +474,13 @@ const characterStates = {
     className: "state-process",
     image: `${import.meta.env.BASE_URL}assets/character-process2.png`,
   },
+  pricing: {
+    label: "Pricing",
+    emoji: "💼",
+    text: "Choose a scope",
+    className: "state-pricing",
+    image: `${import.meta.env.BASE_URL}assets/character-services.png`,
+  },
   contact: {
     label: "Contact",
     emoji: "💬",
@@ -484,6 +542,7 @@ function useActiveSection() {
       "pwa-apps",
       "experience",
       "process",
+      "pricing",
       "contact",
     ];
 
@@ -1437,6 +1496,73 @@ function Process() {
   );
 }
 
+function Pricing() {
+  return (
+    <section id="pricing" className="section pricing-section">
+      <SectionHeading
+        eyebrow="Pricing"
+        title="Flexible packages based on your project scope"
+        description="Every project is quoted after understanding the workflow, required screens, backend modules, integrations, timeline and launch requirements."
+      />
+
+      <div className="pricing-grid">
+        {pricingPackages.map((item) => (
+          <TiltCard
+            className={`pricing-card ${item.featured ? "featured" : ""}`}
+            key={item.title}
+          >
+            <div className="pricing-card-top">
+              <span className="pricing-badge">{item.badge}</span>
+              {item.featured && (
+                <span className="pricing-featured">
+                  <Sparkles size={14} />
+                  Popular
+                </span>
+              )}
+            </div>
+
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+
+            <div className="pricing-quote-label">
+              <span>Custom quotation</span>
+              <strong>Request a quote</strong>
+            </div>
+
+            <ul className="pricing-feature-list">
+              {item.features.map((feature) => (
+                <li key={feature}>
+                  <CheckCircle2 size={16} />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <p className="pricing-note">{item.note}</p>
+
+            <div className="pricing-actions">
+              <a href={getHireMeLink()} className="pricing-btn primary">
+                Request a Quote
+                <ArrowUpRight size={17} />
+              </a>
+
+              <a
+                href={getWhatsappLink()}
+                className="pricing-btn secondary"
+                target="_blank"
+                rel="noreferrer"
+              >
+                WhatsApp
+                <MessageCircle size={17} />
+              </a>
+            </div>
+          </TiltCard>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Testimonials() {
   return (
     <section className="section testimonial-section">
@@ -1631,6 +1757,7 @@ function App() {
         <PwaApps />
         <Experience />
         <Process />
+        <Pricing />
         <Testimonials />
         <Contact />
       </main>
